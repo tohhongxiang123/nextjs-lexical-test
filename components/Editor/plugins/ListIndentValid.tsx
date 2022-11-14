@@ -12,6 +12,7 @@ import {
     OUTDENT_CONTENT_COMMAND,
 } from 'lexical';
 import { useEffect } from 'react';
+import { $getTopListNode } from '@lexical/list/utils';
 
 function getElementNodesInSelection(
     selection: RangeSelection,
@@ -71,63 +72,13 @@ function isIndentPermitted(): boolean {
     return false
 }
 
-function isOutdentPermitted(): boolean {
-    const selection = $getSelection();
-
-    if (!$isRangeSelection(selection)) {
-        return false;
-    }
-
-    const elementNodesInSelection: Set<ElementNode> =
-        getElementNodesInSelection(selection);
-
-    for (const elementNode of elementNodesInSelection) {
-        if ($isListNode(elementNode)) {
-            const nextList = elementNode.getNextSibling()
-            const nextDepth = $isListNode(nextList) ? $getListDepth(nextList) : 0
-
-            const currentDepth = $getListDepth(elementNode)
-            return currentDepth > nextDepth - 1
-        } else if ($isListItemNode(elementNode)) {
-            const parent = elementNode.getParent()
-
-            if (!$isListNode(parent)) {
-                throw new Error(
-                    'ListMaxIndentLevelPlugin: A ListItemNode must have a ListNode for a parent.',
-                );
-            } 
-
-            const currentDepth = $getListDepth(parent)
-
-            const nextItem = elementNode.getNextSibling()
-            // if previous item is a list node, we can directly use it
-            // if previous item is a list item node, we must access the list instead
-            const nextList = $isListNode(nextItem) ? nextItem : $isListItemNode(nextItem) ? nextItem.getParent() : null
-
-            console.log({ nextItem, nextItemContent: nextItem?.getTextContent(), nextList, c: nextList?.getTextContent(), d: $getListDepth(nextList as any) })
-            const nextDepth = $isListNode(nextList) ? $getListDepth(nextList) : 0
-
-            return currentDepth > nextDepth - 1
-        }
-    }
-
-    return false
-}
-
-export default function ListMaxIndentLevelPlugin(): null {
+export default function ListIndentValid(): null {
     const [editor] = useLexicalComposerContext();
 
     useEffect(() => {
         return editor.registerCommand(
             INDENT_CONTENT_COMMAND,
             () => !isIndentPermitted(),
-            COMMAND_PRIORITY_CRITICAL,
-        );
-    }, [editor]);
-    useEffect(() => {
-        return editor.registerCommand(
-            OUTDENT_CONTENT_COMMAND,
-            () => !isOutdentPermitted(),
             COMMAND_PRIORITY_CRITICAL,
         );
     }, [editor]);

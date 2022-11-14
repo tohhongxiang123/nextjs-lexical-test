@@ -16,7 +16,7 @@ import MarkdownCopyPastePlugin from './plugins/MarkdownCopyPastePlugin';
 import { TRANSFORMERS } from './plugins/MarkdownShortcutsPlugin';
 import EquationsPlugin from './plugins/EquationsPlugin';
 import AutofocusPlugin from './plugins/AutofocusPlugin';
-import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin';
+import ListIndentValid from './plugins/ListIndentValid';
 
 // When the editor changes, you can get notified via the
 // LexicalOnChangePlugin!
@@ -55,7 +55,7 @@ export default function Editor() {
                 <TrailingParagraphPlugin />
                 <MarkdownCopyPastePlugin />
                 <AutofocusPlugin />
-                <ListMaxIndentLevelPlugin />
+                <ListIndentValid />
             </LexicalComposer>
         </div>
     );
