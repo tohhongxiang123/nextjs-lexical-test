@@ -2,7 +2,7 @@ import { $convertFromMarkdownString } from "@lexical/markdown"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { COMMAND_PRIORITY_EDITOR, PASTE_COMMAND } from "lexical"
 import { useEffect } from "react"
-import { TRANSFORMERS } from "./MarkdownShortcutsPlugin"
+import { TRANSFORMERS } from "./MarkdownTransformers"
 
 export default function MarkdownCopyPastePlugin() {
     const [editor] = useLexicalComposerContext()

@@ -1,0 +1,49 @@
+.ImageNode__contentEditable {
+    min-height: 20px;
+    border: 0px;
+    resize: none;
+    cursor: text;
+    caret-color: rgb(5, 5, 5);
+    display: block;
+    position: relative;
+    tab-size: 1;
+    outline: 0px;
+    padding: 10px;
+    user-select: text;
+    font-size: 12px;
+    width: calc(100% - 20px);
+    white-space: pre-wrap;
+    word-break: break-word;
+    background-color: #afafaf;
+}
+
+.ImageNode__placeholder {
+    font-size: 12px;
+    color: #888;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    top: 10px;
+    left: 10px;
+    user-select: none;
+    white-space: nowrap;
+    display: inline-block;
+    pointer-events: none;
+}
+
+.ImageNode__caption {
+    display: block;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid #fff;
+    background-color: rgba(255, 255, 255, 0.9);
+    min-width: 100px;
+    color: #000;
+    overflow: hidden;
+  }
+
+.image-control-wrapper--resizing {
+    touch-action: none;
+}

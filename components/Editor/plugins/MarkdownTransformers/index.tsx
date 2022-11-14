@@ -3,7 +3,7 @@ import type {
     TextMatchTransformer,
     Transformer,
 } from '@lexical/markdown';
-import { ElementNode, LexicalNode, ParagraphNode } from 'lexical';
+import { ElementNode, LexicalNode } from 'lexical';
 
 import {
     CHECK_LIST,
@@ -40,7 +40,7 @@ import {
     $isEquationNode,
     EquationNode,
 } from '../../nodes/EquationNode';
-// import { $createImageNode, $isImageNode, ImageNode } from '../../nodes/ImageNode';
+import { $createImageNode, $isImageNode, ImageNode } from '../../nodes/ImageNode';
 // import { $createTweetNode, $isTweetNode, TweetNode } from '../../nodes/TweetNode';
 
 export const HR: ElementTransformer = {
@@ -64,29 +64,29 @@ export const HR: ElementTransformer = {
     type: 'element',
 };
 
-// export const IMAGE: TextMatchTransformer = {
-//     dependencies: [ImageNode],
-//     export: (node, exportChildren, exportFormat) => {
-//         if (!$isImageNode(node)) {
-//             return null;
-//         }
+export const IMAGE: TextMatchTransformer = {
+    dependencies: [ImageNode],
+    export: (node, exportChildren, exportFormat) => {
+        if (!$isImageNode(node)) {
+            return null;
+        }
 
-//         return `![${node.getAltText()}](${node.getSrc()})`;
-//     },
-//     importRegExp: /!(?:\[([^[]*)\])(?:\(([^(]+)\))/,
-//     regExp: /!(?:\[([^[]*)\])(?:\(([^(]+)\))$/,
-//     replace: (textNode, match) => {
-//         const [, altText, src] = match;
-//         const imageNode = $createImageNode({
-//             altText,
-//             maxWidth: 800,
-//             src,
-//         });
-//         textNode.replace(imageNode);
-//     },
-//     trigger: ')',
-//     type: 'text-match',
-// };
+        return `![${node.getAltText()}](${node.getSrc()})`;
+    },
+    importRegExp: /!(?:\[([^[]*)\])(?:\(([^(]+)\))/,
+    regExp: /!(?:\[([^[]*)\])(?:\(([^(]+)\))$/,
+    replace: (textNode, match) => {
+        const [, altText, src] = match;
+        const imageNode = $createImageNode({
+            altText,
+            maxWidth: 800,
+            src,
+        });
+        textNode.replace(imageNode);
+    },
+    trigger: ')',
+    type: 'text-match',
+};
 
 // importRegExp: /\$\$(\r\n|\r|\n)([^$].+?)(\r\n|\r|\n)\$\$/,
 // regExp: /\$\$(\r\n|\r|\n)([^$].+?)(\r\n|\r|\n)\$\$$/,
@@ -287,7 +287,7 @@ const mapToTableCells = (textContent: string): Array<TableCellNode> | null => {
 export const TRANSFORMERS: Array<Transformer> = [
     TABLE,
     HR,
-    // IMAGE,
+    IMAGE,
     EQUATION,
     EQUATION_BLOCK,
     // TWEET,

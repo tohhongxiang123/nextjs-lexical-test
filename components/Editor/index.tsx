@@ -13,7 +13,7 @@ import theme from './themes';
 import CodeHighlightPlugin from './plugins/CodeHighlightPlugin';
 import TrailingParagraphPlugin from './plugins/TrailingParagraphPlugin';
 import MarkdownCopyPastePlugin from './plugins/MarkdownCopyPastePlugin';
-import { TRANSFORMERS } from './plugins/MarkdownShortcutsPlugin';
+import { TRANSFORMERS } from './plugins/MarkdownTransformers';
 import EquationsPlugin from './plugins/EquationsPlugin';
 import AutofocusPlugin from './plugins/AutofocusPlugin';
 import ListIndentValid from './plugins/ListIndentValid';
